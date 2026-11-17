@@ -4,7 +4,9 @@ ComfyUI node that frees VRAM and RAM by wiping a single model mid-workflow (no C
 
 An inline passthrough node for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) that frees one routed model (wipe or offload) and/or resets the node output cache, then returns its input unchanged.
 
+Wan2.2 workflow
 ![Workflow screenshot](https://github.com/Mirielz/ComfyUI-V_RAM_Saver/blob/main/images/V_RAM_Saver_Wan2.2_example.png)
+SDXL workflow
 ![Workflow screenshot](https://github.com/Mirielz/ComfyUI-V_RAM_Saver/blob/main/images/V_RAM_Saver_SDXL_example.png)
 
 ## Features
