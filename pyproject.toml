@@ -12,6 +12,6 @@ Repository = "https://github.com/Mirielz/ComfyUI-V_RAM_Saver"
 Issues = "https://github.com/Mirielz/ComfyUI-V_RAM_Saver/issues"
 
 [tool.comfy]
-PublisherId = "<REGISTRY_PUBLISHER_ID>"
+PublisherId = "mirielz"
 DisplayName = "ComfyUI-V_RAM_Saver"
 Icon = ""
