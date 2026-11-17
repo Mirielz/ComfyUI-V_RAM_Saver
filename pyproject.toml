@@ -1,0 +1,17 @@
+[project]
+name = "comfyui-v-ram-saver"
+version = "1.0.0"
+description = "ComfyUI node that frees VRAM and RAM by wiping a single model mid-workflow (no CPU copy), or offloading it to CPU."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/Mirielz/ComfyUI-V_RAM_Saver"
+Issues = "https://github.com/Mirielz/ComfyUI-V_RAM_Saver/issues"
+
+[tool.comfy]
+PublisherId = "<REGISTRY_PUBLISHER_ID>"
+DisplayName = "ComfyUI-V_RAM_Saver"
+Icon = ""
