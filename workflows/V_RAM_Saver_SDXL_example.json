@@ -2,14 +2,14 @@
   "id": "9b40f0bc-c743-4cf0-a32f-d7e8157abb32",
   "revision": 0,
   "last_node_id": 23,
-  "last_link_id": 30,
+  "last_link_id": 32,
   "nodes": [
     {
       "id": 4,
       "type": "CheckpointLoaderSimple",
       "pos": [
-        -2808.4218263496928,
-        -1585.8936787967866
+        -2805.947395338193,
+        -1557.4379770211385
       ],
       "size": [
         527.0004126462304,
@@ -49,18 +49,18 @@
         "Node name for S&R": "CheckpointLoaderSimple"
       },
       "widgets_values": [
-        "SDXL\\juggernautXL_juggernautX.safetensors"
+        ""
       ],
       "widgets_values_named": {
-        "ckpt_name": "SDXL\\juggernautXL_juggernautX.safetensors"
+        "ckpt_name": ""
       }
     },
     {
       "id": 6,
       "type": "CLIPTextEncode",
       "pos": [
-        -2200.8335527570994,
-        -1563.9731218329646
+        -2250,
+        -1560
       ],
       "size": [
         400,
@@ -81,7 +81,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            8
+            32
           ]
         }
       ],
@@ -101,8 +101,8 @@
       "id": 7,
       "type": "CLIPTextEncode",
       "pos": [
-        -2206.246404114517,
-        -1308.4194647024929
+        -2250,
+        -1300
       ],
       "size": [
         400,
@@ -143,15 +143,15 @@
       "id": 8,
       "type": "KSampler",
       "pos": [
-        -1154.9731069055895,
-        -1567.6111059546
+        -1524.8464727993987,
+        -1556.1860492113492
       ],
       "size": [
         270,
         262
       ],
       "flags": {},
-      "order": 11,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -192,19 +192,19 @@
       "widgets_values": [
         0,
         "randomize",
-        20,
+        30,
         8,
-        "euler",
-        "simple",
+        "dpmpp_2m_sde_gpu",
+        "karras",
         1
       ],
       "widgets_values_named": {
         "seed": 0,
         "control_after_generate": "randomize",
-        "steps": 20,
+        "steps": 30,
         "cfg": 8,
-        "sampler_name": "euler",
-        "scheduler": "simple",
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
         "denoise": 1
       }
     },
@@ -212,8 +212,8 @@
       "id": 9,
       "type": "EmptyLatentImage",
       "pos": [
-        -1451.8897275444062,
-        -1349.0772718640972
+        -1829.6929455987975,
+        -1290.4093869900034
       ],
       "size": [
         270,
@@ -249,66 +249,24 @@
       }
     },
     {
-      "id": 12,
-      "type": "ConditioningMultiply",
-      "pos": [
-        -1769.4699276821516,
-        -1563.6830064476355
-      ],
-      "size": [
-        270,
-        58
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "conditioning",
-          "type": "CONDITIONING",
-          "link": 8
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            9
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.45.3",
-        "Node name for S&R": "ConditioningMultiply"
-      },
-      "widgets_values": [
-        1
-      ],
-      "widgets_values_named": {
-        "multiplier": 1
-      }
-    },
-    {
       "id": 13,
       "type": "V_RAM_Saver",
       "pos": [
-        -1467.381159747339,
-        -1564.1415748695415
+        -1829.8976107763997,
+        -1554.9488053881998
       ],
       "size": [
         280.04999389648435,
         150
       ],
       "flags": {},
-      "order": 9,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "anything",
           "type": "*",
-          "link": 9
+          "link": 32
         },
         {
           "name": "wipe_model",
@@ -332,6 +290,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-v-ram-saver",
+        "ver": "1.0.0",
         "Node name for S&R": "V_RAM_Saver"
       },
       "widgets_values": [
@@ -351,15 +311,15 @@
       "id": 14,
       "type": "KSampler",
       "pos": [
-        -548.392575938191,
-        -1577.5769121341295
+        -937.116181998497,
+        -1548.865145400451
       ],
       "size": [
         270,
         262
       ],
       "flags": {},
-      "order": 13,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -400,19 +360,19 @@
       "widgets_values": [
         0,
         "randomize",
-        20,
+        30,
         8,
-        "euler",
-        "simple",
+        "dpmpp_2m_sde_gpu",
+        "karras",
         1
       ],
       "widgets_values_named": {
         "seed": 0,
         "control_after_generate": "randomize",
-        "steps": 20,
+        "steps": 30,
         "cfg": 8,
-        "sampler_name": "euler",
-        "scheduler": "simple",
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
         "denoise": 1
       }
     },
@@ -420,15 +380,15 @@
       "id": 15,
       "type": "V_RAM_Saver",
       "pos": [
-        -855.3909339095624,
-        -1566.0294700799923
+        -1234.7440835757984,
+        -1552.4744310114995
       ],
       "size": [
         280.04999389648435,
         150
       ],
       "flags": {},
-      "order": 12,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -458,6 +418,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-v-ram-saver",
+        "ver": "1.0.0",
         "Node name for S&R": "V_RAM_Saver"
       },
       "widgets_values": [
@@ -477,15 +439,15 @@
       "id": 16,
       "type": "VAEDecode",
       "pos": [
-        54.74883571478507,
-        -1566.2261246692372
+        -347.013906044495,
+        -1552.4744310114995
       ],
       "size": [
         140,
         46
       ],
       "flags": {},
-      "order": 15,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -518,15 +480,15 @@
       "id": 17,
       "type": "V_RAM_Saver",
       "pos": [
-        -247.464808463627,
-        -1573.2937096741632
+        -648.2510365980459,
+        -1550.1023325888011
       ],
       "size": [
         280.04999389648435,
         150
       ],
       "flags": {},
-      "order": 14,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -556,6 +518,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-v-ram-saver",
+        "ver": "1.0.0",
         "Node name for S&R": "V_RAM_Saver"
       },
       "widgets_values": [
@@ -575,8 +539,8 @@
       "id": 18,
       "type": "CheckpointLoaderSimple",
       "pos": [
-        -2808.4218263496928,
-        -930.6447504435274
+        -2799.7952781875997,
+        -1013.9162833774519
       ],
       "size": [
         527.0004126462304,
@@ -618,18 +582,18 @@
         "Node name for S&R": "CheckpointLoaderSimple"
       },
       "widgets_values": [
-        "SDXL\\juggernautXL_juggernautX.safetensors"
+        ""
       ],
       "widgets_values_named": {
-        "ckpt_name": "SDXL\\juggernautXL_juggernautX.safetensors"
+        "ckpt_name": ""
       }
     },
     {
       "id": 19,
       "type": "CLIPTextEncode",
       "pos": [
-        -2224.9922547700053,
-        -969.4991012348479
+        -2250,
+        -1020
       ],
       "size": [
         400,
@@ -650,7 +614,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            23
+            31
           ]
         }
       ],
@@ -670,8 +634,8 @@
       "id": 20,
       "type": "CLIPTextEncode",
       "pos": [
-        -2225.9125253234806,
-        -689.7933876132174
+        -2250,
+        -740
       ],
       "size": [
         400,
@@ -709,66 +673,24 @@
       }
     },
     {
-      "id": 21,
-      "type": "ConditioningMultiply",
-      "pos": [
-        -1792.7218449878562,
-        -974.3148911381054
-      ],
-      "size": [
-        270,
-        58
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "conditioning",
-          "type": "CONDITIONING",
-          "link": 23
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            25
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.45.3",
-        "Node name for S&R": "ConditioningMultiply"
-      },
-      "widgets_values": [
-        1
-      ],
-      "widgets_values_named": {
-        "multiplier": 1
-      }
-    },
-    {
       "id": 22,
       "type": "V_RAM_Saver",
       "pos": [
-        -1500.2912515029693,
-        -970.9407957469689
+        -1830,
+        -1020
       ],
       "size": [
         280.04999389648435,
         150
       ],
       "flags": {},
-      "order": 10,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
           "name": "anything",
           "type": "*",
-          "link": 25
+          "link": 31
         },
         {
           "name": "wipe_model",
@@ -792,6 +714,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-v-ram-saver",
+        "ver": "1.0.0",
         "Node name for S&R": "V_RAM_Saver"
       },
       "widgets_values": [
@@ -811,15 +735,15 @@
       "id": 23,
       "type": "SaveImage",
       "pos": [
-        221.9740823414499,
-        -1562.971464585197
+        -181.96265479789668,
+        -1556.18599257655
       ],
       "size": [
         270,
         58
       ],
       "flags": {},
-      "order": 16,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -887,22 +811,6 @@
       8,
       0,
       "MODEL"
-    ],
-    [
-      8,
-      6,
-      0,
-      12,
-      0,
-      "CONDITIONING"
-    ],
-    [
-      9,
-      12,
-      0,
-      13,
-      0,
-      "CONDITIONING"
     ],
     [
       10,
@@ -985,28 +893,12 @@
       "MODEL"
     ],
     [
-      23,
-      19,
-      0,
-      21,
-      0,
-      "CONDITIONING"
-    ],
-    [
       24,
       18,
       1,
       22,
       1,
       "CLIP"
-    ],
-    [
-      25,
-      21,
-      0,
-      22,
-      0,
-      "CONDITIONING"
     ],
     [
       26,
@@ -1047,16 +939,32 @@
       16,
       0,
       "LATENT"
+    ],
+    [
+      31,
+      19,
+      0,
+      22,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      32,
+      6,
+      0,
+      13,
+      0,
+      "CONDITIONING"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.36804079438597453,
+      "scale": 0.5388485270605056,
       "offset": [
-        3146.827954667383,
-        2461.234593613941
+        2923.304957755887,
+        2090.5167347285633
       ]
     },
     "frontendVersion": "1.58.5",
