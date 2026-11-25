@@ -16,10 +16,10 @@ class AnyType(str):
         Always reports equality so ComfyUI accepts any connection.
 
         Args:
-            other: object being compared (ignored)
+            other (object): Object being compared (ignored).
 
         Returns:
-            always True
+            bool: Always True.
         """
         return True
 
@@ -28,10 +28,10 @@ class AnyType(str):
         Always reports inequality as False (mirror of __eq__).
 
         Args:
-            other: object being compared (ignored)
+            other (object): Object being compared (ignored).
 
         Returns:
-            always False
+            bool: Always True.
         """
         return False
 
@@ -40,7 +40,7 @@ class AnyType(str):
         Hashes the underlying string so the type stays usable as a dict key.
 
         Returns:
-            hash of the wildcard string
+            int: Hash of the wildcard string.
         """
         return hash(str(self))
 
@@ -57,12 +57,12 @@ def _c(text: str, color: str, bold: bool = False) -> str:
     Wraps text in ANSI color codes for console output; returns plain text if NO_COLOR is set or the color is unknown.
 
     Args:
-        text: text to colorize (converted with str())
-        color: key of _COLORS ('red', 'green', 'yellow', 'magenta', 'cyan', 'gray')
-        bold: apply bold style
+        text (str): Text to colorize (converted with str()).
+        color (str): Key of _COLORS ('red', 'green', 'yellow', 'magenta', 'cyan', 'gray').
+        bold (bool): Apply bold style.
 
     Returns:
-        colorized string, or plain string when NO_COLOR is set or color is not in _COLORS
+        str: Colorized string, or plain string when NO_COLOR is set or color is not in _COLORS.
     """
     code = _COLORS.get(color)
     if os.environ.get('NO_COLOR') or code is None:
@@ -76,11 +76,12 @@ def _empty_module(model: torch.nn.Module) -> tuple[int, int]:
     Tensors that cannot be emptied are set to None.
 
     Args:
-        model: module whose parameters and buffers are emptied
+        model (torch.nn.Module): Module whose parameters and buffers are emptied.
 
     Returns:
-        vram_bytes: total bytes emptied on non-CPU, non-meta devices (actually freed only if nothing else references the storage)
-        ram_bytes: total bytes emptied on CPU (same caveat)
+        tuple:
+        vram_bytes (int): Total bytes emptied on non-CPU, non-meta devices (actually freed only if nothing else references the storage).
+        ram_bytes (int): Total bytes emptied on CPU (actually freed only if nothing else references the storage).
     """
     vram = ram = 0
     seen = set()
@@ -112,10 +113,10 @@ def _kind(obj: object) -> str:
     Short label of a routed object for status messages.
 
     Args:
-        obj: object connected to wipe_model
+        obj (object): Object connected to wipe_model.
 
     Returns:
-        'MODEL' for a ModelPatcher, otherwise the class name (CLIP, VAE, ...)
+        str: 'MODEL' for a ModelPatcher, otherwise the class name (CLIP, VAE, ...).
     """
     if isinstance(obj, comfy.model_patcher.ModelPatcher):
         return 'MODEL'
@@ -127,10 +128,10 @@ def _note_color(note: str) -> str:
     Colors a status note by its content (red: failed/aborted, yellow: skipped, green: offloaded, gray: other).
 
     Args:
-        note: plain status note
+        note (str): Plain status note.
 
     Returns:
-        colorized note for console output
+        str: Colorized note for console output.
     """
     if 'FAILED' in note or 'aborted' in note:
         return _c(note, 'red')
@@ -145,10 +146,10 @@ def _resolve_roots(obj: object) -> list[comfy.model_patcher.ModelPatcher]:
     Collects the unique ModelPatchers behind a routed object (the object itself, its .patcher, and any returned by get_models()).
 
     Args:
-        obj: routed object (MODEL, CLIP, VAE, ...)
+        obj (object): Routed object (MODEL, CLIP, VAE, ...).
 
     Returns:
-        list of unique ModelPatchers; empty if the type is unsupported
+        list[comfy.model_patcher.ModelPatcher]: List of unique ModelPatchers; empty if the type is unsupported.
     """
     roots, seen = [], set()
 
@@ -157,7 +158,7 @@ def _resolve_roots(obj: object) -> list[comfy.model_patcher.ModelPatcher]:
         Appends p to the enclosing `roots` list if it is a ModelPatcher not already added (deduplicated by id via `seen`).
 
         Args:
-            p: candidate object; ignored if it is not a ModelPatcher
+            p (object): Candidate object; ignored if it is not a ModelPatcher.
         """
         if isinstance(p, comfy.model_patcher.ModelPatcher) and id(p) not in seen:
             seen.add(id(p))
@@ -184,12 +185,12 @@ def _source_names(prompt: dict | None, unique_id: str | int, input_name: str = '
     Never raises.
 
     Args:
-        prompt: ComfyUI prompt graph (hidden PROMPT input)
-        unique_id: id of this node in the prompt
-        input_name: name of the input socket to trace from
+        prompt (dict | None): ComfyUI prompt graph (hidden PROMPT input).
+        unique_id (str | int): Id of this node in the prompt.
+        input_name (str): Name of the input socket to trace from.
 
     Returns:
-        list of 'kind: filename' strings (e.g. 'ckpt: model.safetensors'); empty if nothing is found
+        list[str]: List of 'kind: filename' strings (e.g. 'ckpt: model.safetensors'); empty if nothing is found.
     """
     names = []
     if prompt:
@@ -214,10 +215,10 @@ def _wipe(patchers: list[comfy.model_patcher.ModelPatcher]) -> list[tuple[str, i
     Hard-wipes models without a CPU copy: removes them from ComfyUI's loaded-model list, unpatches without moving weights, clears backups, empties weights, then runs gc and clears the cache. Relies on internal ComfyUI attributes; a missing one is logged as a warning and its step is skipped instead of aborting.
 
     Args:
-        patchers: ModelPatchers to wipe (nested ones only if the caller included them)
+        patchers (list[comfy.model_patcher.ModelPatcher]): ModelPatchers to wipe (nested ones only if the caller included them).
 
     Returns:
-        list of (architecture_name, vram_bytes, ram_bytes) per wiped model; dynamic-VRAM models are not listed
+        list[tuple[str, int, int]: List of (architecture_name, vram_bytes, ram_bytes) per wiped model; dynamic-VRAM models are not listed.
     """
     uuids = {u for u in (getattr(p, 'clone_base_uuid', None) for p in patchers) if u is not None}
     cur = getattr(mm, 'current_loaded_models', None)
@@ -270,14 +271,14 @@ def _wipe(patchers: list[comfy.model_patcher.ModelPatcher]) -> list[tuple[str, i
 
 def _with_nested(roots: list[comfy.model_patcher.ModelPatcher], include_nested: bool = True) -> list[comfy.model_patcher.ModelPatcher]:
     """
-    Description summary: optionally expands patchers with their nested additional models, removing duplicates and keeping order.
+    Optionally expands patchers with their nested additional models, removing duplicates and keeping order.
 
     Args:
-        roots: ModelPatchers to expand
-        include_nested: add each root's nested additional models; if False, only the roots are returned
+        roots (list[comfy.model_patcher.ModelPatcher]): ModelPatchers to expand.
+        include_nested (bool): Add each root's nested additional models; if False, only the roots are returned.
 
     Returns:
-        Roots (followed by their nested additional models if include_nested), without duplicates
+        list[comfy.model_patcher.ModelPatcher]: Roots (followed by their nested additional models if include_nested), without duplicates.
     """
     out, seen = [], set()
     for r in roots:
@@ -299,7 +300,7 @@ class V_RAM_Saver:
         Declares the node's inputs for ComfyUI.
 
         Returns:
-            dict with 'required' (anything), 'optional' (wipe_model, wipe, offload_model, clear_cache, wipe_nested) and 'hidden' (prompt, unique_id) inputs
+            dict: Dictionary with 'required' (anything), 'optional' (wipe_model, wipe, offload_model, clear_cache, wipe_nested) and 'hidden' (prompt, unique_id) inputs.
         """
         return {
             'required': {'anything': (any_type, {}),},
@@ -330,18 +331,19 @@ class V_RAM_Saver:
         Passes `anything` through and optionally wipes the routed model (no CPU copy, forces clear_cache), offloads it normally to CPU, and/or schedules a node-cache reset after the prompt ends.
 
         Args:
-            anything: value passed through unchanged; also enforces execution order
-            wipe_model: model/CLIP/VAE to free
-            wipe: wipe wipe_model from VRAM and RAM (takes priority over offload_model)
-            offload_model: normal ComfyUI unload of wipe_model (copies to CPU)
-            clear_cache: reset the node output cache after the prompt ends
-            wipe_nested: when wiping, also wipe the nested additional models (ControlNet, etc.); if False, only the routed model is wiped
-            prompt: hidden ComfyUI prompt graph
-            unique_id: hidden id of this node
+            anything (object): Value passed through unchanged; also enforces execution order.
+            wipe_model (object): Model/CLIP/VAE to free.
+            wipe (bool): Wipe wipe_model from VRAM and RAM (takes priority over offload_model).
+            offload_model (bool): Normal ComfyUI unload of wipe_model (copies to CPU).
+            clear_cache (bool): Reset the node output cache after the prompt ends.
+            wipe_nested (bool): When wiping, also wipe the nested additional models (ControlNet, etc.); if False, only the routed model is wiped.
+            prompt (dict | None): Hidden ComfyUI prompt graph.
+            unique_id (str | int): Hidden id of this node.
 
         Returns:
-            anything: the unchanged input
-            status: '; '-joined notes on actions taken, or 'nothing to do'
+            tuple:
+            object: The unchanged input.
+            str: '; '-joined notes on actions taken, or 'nothing to do'.
         """
         notes = []
         roots = _resolve_roots(wipe_model) if wipe_model is not None else []
